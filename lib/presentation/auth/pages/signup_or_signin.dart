@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
@@ -61,15 +62,25 @@ class SignupOrSigninPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 20),
                       Expanded(
-                        flex: 1,
                         child: TextButton(
                           onPressed: () {},
-                          child: Text(
+                          style: TextButton.styleFrom(
+                            minimumSize: const Size.fromHeight(80),
+                            foregroundColor: context.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            overlayColor: context.isDarkMode
+                                ? Colors.white.withValues(alpha: 0.1)
+                                : Colors.black.withValues(alpha: 0.1),
+                          ),
+                          child: const Text(
                             'Sign In',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.darkGrey
                             ),
                           ),
                         ),
