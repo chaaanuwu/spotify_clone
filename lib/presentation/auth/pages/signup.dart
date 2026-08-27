@@ -23,7 +23,7 @@ class SignupPage extends StatelessWidget {
         title: SvgPicture.asset(AppVectors.logo, height: 40, width: 40),
       ),
       bottomNavigationBar: _signinText(context),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,6 +98,7 @@ class SignupPage extends StatelessWidget {
   Widget _passwordField(BuildContext context) {
     return TextField(
       controller: _password,
+      obscureText: true,
       decoration: InputDecoration(
         hintText: "Password",
       ).applyDefaults(Theme.of(context).inputDecorationTheme),
@@ -119,7 +120,7 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => const SigninPage(),
+                  builder: (BuildContext context) => SigninPage(),
                 ),
               );
             },
