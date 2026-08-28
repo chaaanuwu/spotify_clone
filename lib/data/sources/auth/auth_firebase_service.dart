@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
@@ -18,7 +19,6 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       );
 
       return Right("Signin was successful.");
-
     } on FirebaseAuthException catch (e) {
       String message = "";
 
@@ -27,7 +27,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       } else if (e.code == "invalid-credential") {
         message = "Wrong password provided.";
       }
-      
+
       return Left(message);
     }
   }
@@ -40,8 +40,12 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
         password: createUserReq.password,
       );
 
-      return Right("Signup was successful.");
+      await FirebaseFirestore.instance.collection('Users').add({
+        "name": createUserReq.fullName,
+        "email": createUserReq.email,
+      });
 
+      return Right("Signup was successful.");
     } on FirebaseAuthException catch (e) {
       String message = "";
 
@@ -50,7 +54,7 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
       } else if (e.code == "email-already-in-use") {
         message = "The email is already in use";
       }
-      
+
       return Left(message);
     }
   }
