@@ -6,6 +6,7 @@ import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/home/widgets/news_songs.dart';
+import 'package:spotify_clone/presentation/home/widgets/play_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,9 +42,15 @@ class _HomePageState extends State<HomePage>
               height: 260,
               child: TabBarView(
                 controller: _tabController,
-                children: [const NewsSongs(), Container(), Container(), Container()],
+                children: [
+                  const NewsSongs(),
+                  Container(),
+                  Container(),
+                  Container(),
+                ],
               ),
             ),
+            const PlayList(),
           ],
         ),
       ),
@@ -74,32 +81,32 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _tabs() {
-  return TabBar(
-    controller: _tabController,
-    isScrollable: true,
-    tabAlignment: TabAlignment.center,
-    labelColor: context.isDarkMode ? Colors.white : Colors.black,
-    indicatorColor: AppColors.primary,
-    dividerColor: Colors.transparent,
-    padding: const EdgeInsets.only(top: 40, bottom: 20),
-    tabs: const [
-      Text(
-        "News",
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-      ),
-      Text(
-        "Videos",
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-      ),
-      Text(
-        "Artists",
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-      ),
-      Text(
-        "Podcasts",
-        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-      ),
-    ],
-  );
-}
+    return TabBar(
+      controller: _tabController,
+      isScrollable: true,
+      tabAlignment: TabAlignment.center,
+      labelColor: context.isDarkMode ? Colors.white : Colors.black,
+      indicatorColor: AppColors.primary,
+      dividerColor: Colors.transparent,
+      padding: const EdgeInsets.only(top: 40, bottom: 20),
+      tabs: const [
+        Text(
+          "News",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          "Videos",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          "Artists",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+        Text(
+          "Podcasts",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        ),
+      ],
+    );
+  }
 }

@@ -7,6 +7,7 @@ import 'package:spotify_clone/domain/entities/song/song.dart';
 
 abstract class SongLocalService {
   Future<Either> getNewsSongs();
+  Future<Either> getPlayList();
 }
 
 class SongLocalServiceImpl extends SongLocalService {
@@ -25,6 +26,28 @@ class SongLocalServiceImpl extends SongLocalService {
       }
 
       songs.sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
+
+      return Right(songs);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either> getPlayList() async {
+    try {
+      List<SongEntity> songs = [];
+
+      var jsonData = await rootBundle.loadString('assets/data/songs.json');
+
+      var data = jsonDecode(jsonData);
+
+      for (var element in data) {
+        var songModel = SongModel.fromJson(element);
+        songs.add(songModel.toEntity());
+      }
+
+      songs.sort((a, b) => b.title.compareTo(a.releaseDate));
 
       return Right(songs);
     } catch (e) {

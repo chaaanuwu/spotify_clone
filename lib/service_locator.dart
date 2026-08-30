@@ -8,35 +8,24 @@ import 'package:spotify_clone/domain/repository/song/song.dart';
 import 'package:spotify_clone/domain/usecases/auth/signin.dart';
 import 'package:spotify_clone/domain/usecases/auth/signup.dart';
 import 'package:spotify_clone/domain/usecases/song/get_news_songs.dart';
+import 'package:spotify_clone/domain/usecases/song/get_play_list.dart';
 
 final GetIt sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  sl.registerSingleton<AuthFirebaseService>(
-    AuthFirebaseServiceImpl(),
-  );
+  sl.registerSingleton<AuthFirebaseService>(AuthFirebaseServiceImpl());
 
-  sl.registerSingleton<SongLocalService>(
-    SongLocalServiceImpl(),
-  );
+  sl.registerSingleton<SongLocalService>(SongLocalServiceImpl());
 
-  sl.registerSingleton<AuthRepository>(
-    AuthRepositoryImpl(),
-  );
+  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
 
-  sl.registerSingleton<SongsRepository>(
-    SongRepositoryImpl(),
-  );
+  sl.registerSingleton<SongsRepository>(SongRepositoryImpl());
 
-  sl.registerSingleton<SignupUseCase>(
-    SignupUseCase(),
-  );
+  sl.registerSingleton<SignupUseCase>(SignupUseCase());
 
-  sl.registerSingleton<SigninUseCase>(
-    SigninUseCase(),
-  );
+  sl.registerSingleton<SigninUseCase>(SigninUseCase());
 
-  sl.registerSingleton<GetNewsSongsUseCase>(
-    GetNewsSongsUseCase(),
-  );
+  sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
+
+  sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
 }
