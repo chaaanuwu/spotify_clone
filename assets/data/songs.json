@@ -1,0 +1,37 @@
+[
+    {
+        "title": "Cinnamon Girl",
+        "artist": "Lana Del Rey",
+        "duration": 4.56,
+        "releaseDate": "2019-08-30",
+        "coverPath": "Lana_Del_Rey_Cinnamon_Girl.jpg"
+    },
+    {
+        "title": "Hate Me",
+        "artist": "Ellie Goulding, Juice WRLD",
+        "duration": 3.06,
+        "releaseDate": "2019-06-26",
+        "coverPath": "Ellie_Goulding_Juice_WRLD_Hate_Me.jpg"
+    },
+    {
+        "title": "Radio",
+        "artist": "Lana Del Rey",
+        "duration": 3.35,
+        "releaseDate": "2012-01-27",
+        "coverPath": "Lana Del Rey - Radio.jpg"
+    },
+    {
+        "title": "Born To Die",
+        "artist": "Lana Del Rey",
+        "duration": 4.46,
+        "releaseDate": "2012-01-27",
+        "coverPath": "Lana Del Rey - Born to Die.jpg"
+    },
+    {
+        "title": "Blank Space",
+        "artist": "Taylor Swift",
+        "duration": 3.52,
+        "releaseDate": "2014-10-27",
+        "coverPath": "Taylor Swift - Blank Space.jpg"
+    }
+]
