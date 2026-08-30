@@ -1,17 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 
 class SongModel {
   String? title;
   String? artist;
   double? duration;
-  Timestamp? releaseDate;
+  String? releaseDate;
+  String? coverPath;
 
   SongModel({
     required this.title,
     required this.artist,
     required this.duration,
     required this.releaseDate,
+    required this.coverPath,
   });
 
   SongModel.fromJson(Map<String, dynamic> data) {
@@ -19,6 +20,7 @@ class SongModel {
     artist = data['artist'];
     duration = data['duration'];
     releaseDate = data['releaseDate'];
+    coverPath = data['coverPath'];
   }
 }
 
@@ -29,6 +31,7 @@ extension SongModelX on SongModel {
       artist: artist!,
       duration: duration!,
       releaseDate: releaseDate!,
+      coverPath: coverPath!,
     );
   }
 }

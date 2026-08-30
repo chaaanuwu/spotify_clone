@@ -5,6 +5,7 @@ import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/home/widgets/news_songs.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,7 +34,17 @@ class _HomePageState extends State<HomePage>
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [_homeTopCard(), _tabs()],
+          children: [
+            _homeTopCard(),
+            _tabs(),
+            SizedBox(
+              height: 260,
+              child: TabBarView(
+                controller: _tabController,
+                children: [const NewsSongs(), Container(), Container(), Container()],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -63,31 +74,32 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _tabs() {
-    return TabBar(
-      controller: _tabController,
-      isScrollable: true,
-      labelColor: context.isDarkMode ? Colors.white : Colors.black,
-      indicatorColor: AppColors.primary,
-      dividerColor: Colors.transparent,
-      padding: EdgeInsets.symmetric(vertical: 40),
-      tabs: [
-        const Text(
-          "News",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        ),
-        const Text(
-          "Videos",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        ),
-        const Text(
-          "Artists",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        ),
-        const Text(
-          "Podcasts",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        ),
-      ],
-    );
-  }
+  return TabBar(
+    controller: _tabController,
+    isScrollable: true,
+    tabAlignment: TabAlignment.center,
+    labelColor: context.isDarkMode ? Colors.white : Colors.black,
+    indicatorColor: AppColors.primary,
+    dividerColor: Colors.transparent,
+    padding: const EdgeInsets.only(top: 40, bottom: 20),
+    tabs: const [
+      Text(
+        "News",
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+      ),
+      Text(
+        "Videos",
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+      ),
+      Text(
+        "Artists",
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+      ),
+      Text(
+        "Podcasts",
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+      ),
+    ],
+  );
+}
 }
