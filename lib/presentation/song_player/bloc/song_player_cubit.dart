@@ -8,6 +8,9 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
   Duration songDuration = Duration.zero;
   Duration songPosition = Duration.zero;
 
+  bool isRepeat = false;
+  bool isPlaying = false;
+
   SongPlayerCubit() : super(SongPlayerLoading()) {
     audioPlayer.positionStream.listen((position) {
       songPosition = position;
@@ -17,6 +20,17 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     audioPlayer.durationStream.listen((duration) {
       songDuration = duration ?? Duration.zero;
       updateSongPlayer();
+    });
+
+    audioPlayer.playerStateStream.listen((playerState) {
+      isPlaying = playerState.playing;
+
+      if (playerState.processingState == ProcessingState.completed) {
+        isPlaying = false;
+        songPosition = songDuration;
+      }
+
+      emit(SongPlayerLoaded());
     });
   }
 
@@ -42,6 +56,20 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
       audioPlayer.play();
     }
     emit(SongPlayerLoaded());
+  }
+
+  void seekSong(Duration position) {
+    audioPlayer.seek(position);
+    emit(SongPlayerLoaded());
+  }
+
+  void toggleRepeat() {
+    isRepeat = !isRepeat;
+    if (isRepeat) {
+      audioPlayer.setLoopMode(LoopMode.one);
+    } else {
+      audioPlayer.setLoopMode(LoopMode.off);
+    }
   }
 
   @override
