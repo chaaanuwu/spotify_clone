@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 import 'package:spotify_clone/presentation/song_player/bloc/song_player_cubit.dart';
-import 'package:spotify_clone/presentation/song_player/bloc/song_player_state.dart'
-    show SongPlayerState, SongPlayerLoading, SongPlayerLoaded;
+import 'package:spotify_clone/presentation/song_player/bloc/song_player_state.dart';
 
 class SongPlayerPage extends StatelessWidget {
   final SongEntity songEntity;
@@ -22,7 +23,6 @@ class SongPlayerPage extends StatelessWidget {
           icon: const Icon(Icons.more_vert_rounded),
         ),
       ),
-
       body: BlocProvider(
         create: (_) => SongPlayerCubit()..loadSong(songEntity.songPath),
         child: SingleChildScrollView(
@@ -67,14 +67,20 @@ class SongPlayerPage extends StatelessWidget {
                 songEntity.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
               ),
               const SizedBox(height: 5),
               Text(
                 songEntity.artist,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
@@ -107,14 +113,26 @@ class SongPlayerPage extends StatelessWidget {
                     .read<SongPlayerCubit>()
                     .songPosition
                     .inSeconds
-                    .toDouble(),
+                    .toDouble()
+                    .clamp(
+                      0.0,
+                      context
+                          .read<SongPlayerCubit>()
+                          .songDuration
+                          .inSeconds
+                          .toDouble(),
+                    ),
                 min: 0.0,
                 max: context
                     .read<SongPlayerCubit>()
                     .songDuration
                     .inSeconds
                     .toDouble(),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<SongPlayerCubit>().seekSong(
+                    Duration(seconds: value.toInt()),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               Padding(
@@ -136,27 +154,76 @@ class SongPlayerPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              GestureDetector(
-                onTap: () {
-                  context.read<SongPlayerCubit>().playOrPauseSong();
-                },
-                child: Container(
-                  height: 75,
-                  width: 75,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.primary,
-                  ),
-                  child: Icon(
-                    context.read<SongPlayerCubit>().audioPlayer.playing
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<SongPlayerCubit>().toggleRepeat();
+                        },
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: context.isDarkMode
+                                ? AppColors.darkGrey
+                                : AppColors.grey,
+                          ),
+                          child: Icon(
+                            Icons.repeat,
+                            color: context.read<SongPlayerCubit>().isRepeat
+                                ? AppColors.primary
+                                : context.isDarkMode
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    StreamBuilder<PlayerState>(
+                      stream: context
+                          .read<SongPlayerCubit>()
+                          .audioPlayer
+                          .playerStateStream,
+                      builder: (context, snapshot) {
+                        final playerState = snapshot.data;
+
+                        final isPlaying =
+                            playerState?.playing == true &&
+                            playerState?.processingState !=
+                                ProcessingState.completed;
+
+                        return GestureDetector(
+                          onTap: () {
+                            context.read<SongPlayerCubit>().playOrPauseSong();
+                          },
+                          child: Container(
+                            height: 75,
+                            width: 75,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.primary,
+                            ),
+                            child: Icon(
+                              size: 35,
+                              isPlaying ? Icons.pause : Icons.play_arrow,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
           );
         }
+
         return Container();
       },
     );
@@ -164,7 +231,7 @@ class SongPlayerPage extends StatelessWidget {
 
   String formatDuration(Duration duration) {
     final minutes = duration.inMinutes.remainder(60);
-    final seconds = duration.inSeconds.remainder(60);
+    final seconds = duration.inMilliseconds ~/ 1000 % 60;
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 }
