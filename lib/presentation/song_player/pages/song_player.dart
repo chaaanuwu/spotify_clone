@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
-import 'package:spotify_clone/presentation/song_player/pages/bloc/song_player_cubit.dart';
-import 'package:spotify_clone/presentation/song_player/pages/bloc/song_player_state.dart'
+import 'package:spotify_clone/presentation/song_player/bloc/song_player_cubit.dart';
+import 'package:spotify_clone/presentation/song_player/bloc/song_player_state.dart'
     show SongPlayerState, SongPlayerLoading, SongPlayerLoaded;
 
 class SongPlayerPage extends StatelessWidget {
