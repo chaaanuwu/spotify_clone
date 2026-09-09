@@ -2,7 +2,9 @@
 
 A Spotify-inspired music streaming application built with **Flutter**. This project was created for learning and practicing Flutter application development, state management, audio playback, clean architecture, and modern UI development.
 
-![Spotify Mockup](assets/mockup/spotify_mockup.png)
+<p align="center">
+  <img src="assets/images/mockup/spotify_mockup.png" alt="Spotify Mockup">
+</p>
 
 ## 🛠️ Technologies Used
 
