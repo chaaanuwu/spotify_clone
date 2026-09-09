@@ -4,6 +4,7 @@ class SongEntity {
   final double duration;
   final String releaseDate;
   final String coverPath;
+  final String songPath;
 
   SongEntity({
     required this.title,
@@ -11,5 +12,6 @@ class SongEntity {
     required this.duration,
     required this.releaseDate,
     required this.coverPath,
+    required this.songPath,
   });
 }
