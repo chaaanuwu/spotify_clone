@@ -5,6 +5,7 @@ import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 import 'package:spotify_clone/presentation/home/bloc/play_list_cubit.dart';
 import 'package:spotify_clone/presentation/home/bloc/play_list_state.dart';
+import 'package:spotify_clone/presentation/song_player/pages/song_player.dart';
 
 class PlayList extends StatelessWidget {
   const PlayList({super.key});
@@ -78,7 +79,15 @@ class PlayList extends StatelessWidget {
         final song = songs[index];
 
         return GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    SongPlayerPage(songEntity: songs[index]),
+              ),
+            );
+          },
           child: Row(
             children: [
               // Play button
@@ -139,11 +148,10 @@ class PlayList extends StatelessWidget {
 
               const SizedBox(width: 10),
 
-              // Favorite button
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.favorite_rounded,
+                  Icons.favorite_outline_outlined,
                   color: AppColors.darkGrey,
                 ),
               ),

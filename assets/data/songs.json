@@ -4,34 +4,39 @@
         "artist": "Lana Del Rey",
         "duration": 4.56,
         "releaseDate": "2019-08-30",
-        "coverPath": "Lana_Del_Rey_Cinnamon_Girl.jpg"
+        "coverPath": "Lana_Del_Rey_Cinnamon_Girl.jpg",
+        "songPath": "Lana_Del_Rey_Cinnamon_Girl.mp3"
     },
     {
         "title": "Hate Me",
         "artist": "Ellie Goulding, Juice WRLD",
-        "duration": 3.06,
+        "duration": 3.25,
         "releaseDate": "2019-06-26",
-        "coverPath": "Ellie_Goulding_Juice_WRLD_Hate_Me.jpg"
+        "coverPath": "Ellie_Goulding_Juice_WRLD_Hate_Me.jpg",
+        "songPath": "Ellie_Goulding_Juice_WRLD_Hate_Me.mp3"
     },
     {
         "title": "Radio",
         "artist": "Lana Del Rey",
-        "duration": 3.35,
+        "duration": 3.34,
         "releaseDate": "2012-01-27",
-        "coverPath": "Lana Del Rey - Radio.jpg"
+        "coverPath": "Lana_Del_Rey_Radio.jpg",
+        "songPath": "Lana_Del_Rey_Radio.mp3"
     },
     {
         "title": "Born To Die",
         "artist": "Lana Del Rey",
         "duration": 4.46,
         "releaseDate": "2012-01-27",
-        "coverPath": "Lana Del Rey - Born to Die.jpg"
+        "coverPath": "Lana_Del_Rey_Born_To_Die.jpg",
+        "songPath": "Lana_Del_Rey_Born_To_Die.mp3"
     },
     {
         "title": "Blank Space",
         "artist": "Taylor Swift",
-        "duration": 3.52,
+        "duration": 3.51,
         "releaseDate": "2014-10-27",
-        "coverPath": "Taylor Swift - Blank Space.jpg"
+        "coverPath": "Taylor_Swift_Blank_Space.jpg",
+        "songPath": "Taylor_Swift_Blank_Space.mp3"
     }
 ]
